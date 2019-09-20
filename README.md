@@ -1,3 +1,5 @@
+![Demo](assets/demo.jpg)
+
 ## Setup
 Main build.gradle:
 ```
@@ -5,7 +7,7 @@ allprojects {
   repositories {
     ...
     maven { url 'https://jitpack.io' }
-	...
+    ...
   }
 }
 ````
@@ -100,5 +102,3 @@ pinger.setOnPingListener(new Pinger.OnPingListener() {
 });
 pinger.Ping("google.com");
 ```
-
-![Demo](assets/demo.png)
