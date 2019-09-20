@@ -60,41 +60,6 @@ class MainActivity : AppCompatActivity() {
 
     fun onButtonClick() {
 
-        val ping = Pinger()
-        ping.setOnPingListener(object : Pinger.OnPingListener {
-            override fun OnStart(pingInfo: PingInfo) {
-                Log.i("PING", "Pinging ${pingInfo.ReverseDns} [${pingInfo.RemoteIp}]")
-            }
-
-            override fun OnStop(pingInfo: PingInfo) {
-                Log.i("PING", "Ping complete")
-            }
-
-            override fun OnException(pingInfo: PingInfo, e: Exception, isFatal: Boolean) {
-            }
-
-            override fun OnTimeout(pingInfo: PingInfo, sequence: Int) {
-                Log.i("PING", "#$sequence: Timeout!")
-                if (sequence>=10)
-                    pingInfo.Pinger.Stop(pingInfo.PingId)
-            }
-
-            override fun OnReplyReceived(
-                pingInfo: PingInfo,
-                sequence: Int,
-                timeMs: Int
-            ) {
-                Log.i("PING", "#$sequence: Reply from ${pingInfo.RemoteIp}: bytes=${pingInfo.Size} time=$timeMs TTL=${pingInfo.Ttl}")
-                if (sequence>=10)
-                    pingInfo.Pinger.Stop(pingInfo.PingId)
-            }
-
-            override fun OnSendError(pingInfo: PingInfo, sequence: Int) {
-            }
-        })
-
-        ping.Ping("google.com")
-
         if (pinger != null) {
             Stop()
             return
@@ -133,7 +98,7 @@ class MainActivity : AppCompatActivity() {
             }
 
         })
-        pinger?.Ping(hostname.text.toString(), 500, 500, 64, 60, byteArrayOf(0,1,2,3,4,5,6,7,8,9,10))
+        pinger?.Ping(hostname.text.toString())
         pingbutton.text = "Stop"
 
     }
